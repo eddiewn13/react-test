@@ -25,10 +25,19 @@ function Villa(){
     }
 
     function calculating(){
-        let lanPengar = parseInt(state.inKopsPris - state.kontantInsats)/(30*12);
-        let kostnadPerManad = parseInt(lanPengar * (1 + state.ranta/100));
+        let lanPengar = parseInt(state.inKopsPris - state.kontantInsats)
+        let ranta = lanPengar*((parseInt(state.ranta)/100)/12)
+        let amortering = lanPengar/(30*12)
+        let kostnadPerManad = parseInt(amortering+ranta)
         let kostnad = parseInt(kostnadPerManad + parseInt(state.vatten) + parseInt(state.el) + parseInt(state.sopor) + parseInt(state.varme));
         return kostnad;
+    }
+
+    function triangle(){
+        if (state.kontantInsats < state.inKopsPris*0.15) {
+            let triangle = <p>Farligt de e under 15%!</p>
+            return triangle;
+        }
     }
 
 
@@ -47,7 +56,7 @@ function Villa(){
             <p>Sopor 500kr/mån</p>
             <p>Värme 1000kr/mån</p>
 
-            <h2>MånadsKostnad {calculating()}</h2>
+            <h2>MånadsKostnad {calculating()} {triangle()} den svenska valutan RIKSDALER.</h2>
         </div>
     )
 }

@@ -28,8 +28,10 @@ function Bostadsratt() {
     }
 
     function calculating(){
-        let lanPengar = parseInt(state.inKopsPris - state.kontantInsats)/(30*12);
-        let kostnadPerManad = parseInt(lanPengar * (1 + state.ranta/100));
+        let lanPengar = parseInt(state.inKopsPris - state.kontantInsats)
+        let ranta = lanPengar*((parseInt(state.ranta)/100)/12)
+        let amortering = lanPengar/(30*12)
+        let kostnadPerManad = parseInt(amortering+ranta)
         let kostnad = parseInt(kostnadPerManad + parseInt(state.avgift) + parseInt(state.ovrigt));
 
         return kostnad;
